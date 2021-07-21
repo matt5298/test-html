@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+        This page is to test an interface created from a drawing program
+    -->
+    <script src="js\konva.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Drag and Drop Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+    // have created a large box and placed smaller boxes inside and placed all in a group
+    // made the group dragable and both boxes are dragged around
+    // can make the boxes draggable inside the group.
+
+    // The group is draggable only by dragging and object that is not draggable that's in the group
+    // An object inside the group that is draggable will drag itself, but not the group if it's dragged.
+
+    // To Do
+      // object create function
+      // array of objects add to
+      // array of objects remove from
+      // save state and load state
+
+    // Add data to boxes.  
+    // would like to be able to have any kind of data object added to a graphic object
+        //the data object would have to have a text representation that could be called to display inside a graphic object
+        //have a way of then activating the object inside the graphic object to be shown it's data.
+
+
+    var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height,
+      });
+
+      var layer = new Konva.Layer();
+      stage.add(layer);
+
+      //To position top left of the drawn rectangle
+      var rectX = stage.width() / 2 - 50;
+      var rectY = stage.height() / 2 - 25;
+
+      var group = new Konva.Group({
+          x: 10,
+          Y: 200,
+          draggable: true
+      });
+      layer.add(group);
+
+
+      var box = new Konva.Rect({
+        //x: rectX,
+        //y: rectY,
+        x:30,
+        y:30,
+        width: 410,
+        height: 300,
+        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 1,
+        draggable: false,
+      });
+
+      group.add(box);
+
+      var boxheight = 14
+      // box width
+      var boxwidth = 96
+      
+       stage.on('click', function () {
+        console.log("Clicked")
+        var pos = group.getRelativePointerPosition();
+        var shape = new Konva.Circle({
+          x: pos.x,
+          y: pos.y,
+          fill: 'red',
+          radius: 20,
+        });
+
+        group.add(shape);
+      });
+      
+         //add additional box to show the group is not bounded, but applies transformations to all objects inside the group
+        var boxInside = new Konva.Rect({
+            x:600,
+            y:400,
+            width: 200,
+            height: 16,
+            fill: '#cccccc',
+            stroke: 'black',
+            strokeWidth: 2,
+            draggable: true,
+        });
+
+        group.add(boxInside)
+
+
+
+      // add cursor styling
+      box.on('mouseover', function () {
+        document.body.style.cursor = 'pointer';
+      });
+      box.on('mouseout', function () {
+        document.body.style.cursor = 'default';
+      });
+
+     layer.add(group)
+     stage.add(layer)
+    </script>
+  </body>
+</html>

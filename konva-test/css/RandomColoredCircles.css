@@ -1,0 +1,32 @@
+html, body{
+    height: 100%;
+    margin: 0px;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #f0f0f0;
+  }
+
+  #stage-parent {
+    height: 100%;
+    border: 1PX solid black;
+  }
+
+  #slider1 {
+    position: relative;
+    left: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+
+  #controls {
+    background-color: burlywood;
+    box-shadow: 10px 10px 8px grey;
+
+  }
+
+  .outputText {
+    width: 30px;
+  }

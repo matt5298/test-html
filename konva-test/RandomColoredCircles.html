@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>The Blank Page</title>
+  <meta name="description" content="Blank Page">
+  <meta name="author" content="Blank">
+
+  <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+  <script src="js/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" href="css/RandomColoredCircles.css">
+  
+</head>
+
+<body>
+
+  <div id="controls" style="position:absolute;left: 10px;top: 10px;z-index: 9999;">
+    <span id="controlsTitle">Controls</span><br>
+    <label for="sliderMaxCircles">Circles</label><input id="sliderMaxCircles" type="range" min="1" max="400" step="1" value="10" oninput="sliderChange('outputCircles',this.value)"/> 
+    <input type="text" class="outputText" id="outputCircles" name="outputCircles" width="10"><br>  
+
+    <label for="sliderMaxRadius">Radius</label><input id="sliderMaxRadius" type="range" min="1" max="400" step="1" value="200" oninput="sliderChange('outputRadius',this.value)"/> 
+    <input type="text" class="outputText" id="outputRadius" name="outputRadius" width="10"><br>  
+
+    <label for="sliderStep">Step</label><input id="sliderStep" type="range" min="0" max="50" step="1" value="2" oninput="sliderChange('outputStep',this.value)"/> 
+    <input type="text" class="outputText" id="outputStep" name="outputStep" width="10"><br>  
+    
+    <label for="sliderStroke">Stroke</label><input id="sliderStroke" type="range" min="0" max="50" step="1" value="2" oninput="sliderChange('outputStroke',this.value)"/> 
+    <input type="text" class="outputText" id="outputStroke" name="outputStroke" width="10"><br>  
+
+    <label for="sliderHole">Hole</label><input id="sliderHole" type="range" min="0" max="50" step="1" value="1" oninput="sliderChange('outputHole',this.value)"/> 
+    <input type="text" class="outputText" id="outputHole" name="outputHole" width="10"><br>  
+
+    <input type="button" value="Start Circles" onclick="callDraw()">
+    
+  </div>
+  <div id="stage-parent">
+    <div id="container"></div>
+  </div>
+    <script>
+      //To call a function with a parameter from a input element
+      //need to create a function that will get it and then make the call 
+      //with the parameter.
+      function callDraw(){
+          startCircles('container',Number($('#outputCircles').val()), Number($('#outputRadius').val()), Number($('#outputStep').val()), Number($('#outputStroke').val()), Number($('#outputHole').val()));
+      }
+      //Function to output slider change
+      function sliderChange(elOutput,slideValue){
+        $("#" + elOutput).val(slideValue);
+        $("#" + elOutput).html(slideValue);
+        console.log(slideValue);
+      }
+      // Set the initial output amounts
+      sliderChange('outputCircles',$('#sliderMaxCircles').val());
+      sliderChange('outputRadius',$('#sliderMaxRadius').val());
+      sliderChange('outputStep',$('#sliderStep').val());
+      sliderChange('outputStroke',$('#sliderStroke').val());
+      sliderChange('outputHole',$('#sliderHole').val());
+
+    </script>
+  <script src="js/Random_colored_circles.js"></script>
+
+</body>
+</html>
