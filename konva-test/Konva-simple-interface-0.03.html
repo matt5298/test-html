@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--
+        This page is to test an interface created from a drawing program
+    -->
+    <script src="https://unpkg.com/konva@8.0.1/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Drag and Drop Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script>
+    // have created a large box and placed smaller boxes inside and placed all in a group
+    // made the group dragable and both boxes are dragged around
+    // can make the boxes draggable inside the group.
+
+    // The group is draggable only by dragging an object that is not draggable that's in the group
+    // An object inside the group that is draggable will drag itself, but not the group if it's dragged.
+      
+    // 0.03 
+    // Have metadata for each object created in the user interface
+    // put that metadata into a json type object
+    // be able to display the json object
+
+    // 0.02
+    //  Primary mouse button double click:  stage.on('dblclick dbltap', function (e) {})
+    //  Secondary mouse button click (on pc not sure on Mac) stage.on('contextmenu', function (e) {})
+
+      
+    // To Do
+    // save state and load state
+
+    // Add data to boxes.  
+    // would like to be able to have any kind of data object added to a graphic object
+        //the data object would have to have a text representation that could be called to display inside a graphic object
+        //have a way of then activating the object inside the graphic object to be shown it's data.
+
+
+    var width = window.innerWidth;
+      var height = window.innerHeight;
+
+      var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height,
+      });
+
+      var layer = new Konva.Layer();
+      //To position top left of the drawn rectangle
+      var rectX = stage.width() / 2 - 50;
+      var rectY = stage.height() / 2 - 25;
+
+      // This is used to for the grid of boxes
+      var group = new Konva.Group({
+          x: 10,
+          Y: 200,
+          draggable: true
+      });
+
+      //The main box of the interface the smaller boxes are placed in
+
+      var box = new Konva.Rect({
+        //x: rectX,
+        //y: rectY,
+        x:0,
+        y:0,
+        width: 410,
+        height: 300,
+        fill: '#00D2FF',
+        stroke: 'black',
+        strokeWidth: 1,
+        draggable: false,
+      });
+
+      group.add(box);
+
+      //Let's add 5 smaller boxes
+      //the position jumps by amount row height
+      var rowheight = 20
+      //box height is smaller than the rowheight
+      var boxheight = 14
+      //padding from top of row to box top
+      var paddingtop = 3
+      //max rows
+      var maxrows = 2
+      //counter for the rows
+      var row;
+      // col width
+      var colwidth = 100
+      // box width
+      var boxwidth = 96
+      //padding from the column start
+      var paddingleft = 7
+      //max cols
+      var maxcols = 2
+
+      //counter for the columns
+      var col; 
+
+    //loop through columns and rows creating a grid of smaller boxes in the larger box
+    for (col = 0; col < maxcols; col++){
+        for (row = 0; row < maxrows ; row++){
+            var boxInside = new Konva.Rect({
+                x:(col * colwidth) + paddingleft,
+                y:(row * rowheight) + paddingtop,
+                width: boxwidth,
+                height: boxheight,
+                fill: '#00cccc',
+                stroke: 'black',
+                strokeWidth: 2,
+                draggable: true,
+            });
+            group.add(boxInside);
+        }
+    };
+        group.add(boxInside)
+
+      // equivalent to the secondary mouse button click on PC.  Not sure on Mac
+      stage.on('contextmenu', function (e) {
+        // prevent default behavior
+        e.evt.preventDefault();
+        console.log(e.evt.button);
+         var pos = layer.getRelativePointerPosition();
+         var shape = new Konva.Circle({
+            x: pos.x,
+            y: pos.y,
+            fill: 'green',
+            radius: 20,
+            draggable: true,
+            });
+       layer.add(shape)
+
+      });
+      // Double click of primary mouse button
+      stage.on('dblclick dbltap', function (e) {
+          var pos = group.getRelativePointerPosition();
+          var shape = new Konva.Circle({
+            x: pos.x,
+            y: pos.y,
+            fill: 'red',
+            radius: 20,
+            draggable: true,
+          });
+        group.add(shape);
+      });
+
+
+      // add cursor styling
+      box.on('mouseover', function () {
+        document.body.style.cursor = 'pointer';
+      });
+      box.on('mouseout', function () {
+        document.body.style.cursor = 'default';
+      });
+
+      layer.add(group);
+      stage.add(layer);
+      
+    </script>
+  </body>
+</html>
