@@ -6,6 +6,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
 from datetime import datetime
+from flask_babel import _
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/index', methods=['GET','POST'])
@@ -18,7 +19,7 @@ def index():
       post = Post(body=form.post.data, author=current_user)
       db.session.add(post)
       db.session.commit()
-      flash('Your post is now live!')
+      flash(_('Your post is now live!'))
       # Post/Redirect/Get pattern to avoid inserting duplicate posts when user refreshes browser
       # redirect here uses GET method.  This means last action by browser will be a GET and 
       # when user refreshes the page it will peform this action instead of the previous
@@ -32,7 +33,7 @@ def index():
       if posts.has_next else None
    prev_url = url_for('index', page=posts.prev_num) \
       if posts.has_prev else None
-   return render_template('index.html',title='Home Page', form=form, 
+   return render_template('index.html',title=_('Home Page'), form=form, 
       posts=posts.items, next_url=next_url,
       prev_url=prev_url)
 
@@ -53,7 +54,7 @@ def login():
 		# using a user object so it already contains the password_hash.
 		# this function compares passed password to the password hash in the object
 		if user is None or not user.check_password(form.password.data):
-			flash('Invalid username or password')
+			flash(_('Invalid username or password'))
 			return redirect(url_for('login'))
 		# function from flask-login that will put the user data and puts it in flask
 		# and makes available the current_user variable 
@@ -67,14 +68,14 @@ def login():
 			next_page = url_for('index')
 		return redirect(next_page)
    # if the form hasn't been submitted then go to the form for it to be filled in.
-	return render_template('login.html', title='Sign In', form=form)
+	return render_template('login.html', title=_('Sign In'), form=form)
 
 @app.route('/logout')
 def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-@app.route('//register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
    # if a logged in user then send to index
    if current_user.is_authenticated:
@@ -85,9 +86,9 @@ def register():
       user.set_password(form.password.data)
       db.session.add(user)
       db.session.commit()
-      flash('Congratulations, you are now a registered user!')
+      flash(_('Congratulations, you are now a registered user!'))
       return redirect(url_for('login'))
-   return render_template('register.html', title='Register', form=form)
+   return render_template('register.html', title=_('Register'), form=form)
 
 # <username> is a dynamic component and flask will accept anything in that position in the URL
 # what ever is put in the place of username gets passed as the variable username
@@ -121,13 +122,13 @@ def edit_profile():
       current_user.username = form.username.data
       current_user.about_me = form.about_me.data
       db.session.commit()
-      flash('Your changes have been saved.')
+      flash(_('Your changes have been saved.'))
       return redirect(url_for('edit_profile'))
    # This is when the form is first requested so fill with data from current_user
    elif request.method == 'GET':
       form.username.data = current_user.username
       form.about_me.data = current_user.about_me
-   return render_template('edit_profile.html', title='Edit Profile', form=form)
+   return render_template('edit_profile.html', title=_('Edit Profile'), form=form)
 
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
@@ -136,14 +137,14 @@ def follow(username):
    if form.validate_on_submit():
       user = User.query.filter_by(username=username).first()
       if user is None:
-         flash('User {} not found.'.format(username))
+         flash(_('User %(username)s not found.',username=username))
          return redirect(url_for('index'))
       if user == current_user:
-         flash('you cannot follow yourself!')
+         flash(_('you cannot follow yourself!'))
          return redirect(url_for('user', username=username))
       current_user.follow(user)
       db.session.commit()
-      flash('You are following {}!'.format(username))
+      flash(_('You are following %(username)s!', username=username))
       return redirect(url_for('user', username=username))
    else:
       return redirect(url_for('index'))
@@ -155,14 +156,14 @@ def unfollow(username):
    if form.validate_on_submit():
       user = User.query.filter_by(username=username).first()
       if user is None:
-         flash('User {} not found.'.format(username))
+         flash(_('User %(username)s not found.', username=username))
          return redirect(url_for('index'))
       if user == current_user:
-         flash('You cannot unfollow yourself!')
+         flash(_('You cannot unfollow yourself!'))
          return redirect(url_for('user', username=username))
       current_user.unfollow(user)
       db.session.commit()
-      flash('You are not following {}.'.format(username))
+      flash(_('You are not following %(username)s.', username=username))
       return redirect(url_for('user', username=username))
    else:
       return redirect(url_for('index'))
@@ -176,7 +177,7 @@ def explore():
       if posts.has_next else None
    prev_url = url_for('index', page=posts.prev_num) \
       if posts.has_prev else None
-   return render_template('index.html',title='Explore', 
+   return render_template('index.html',title=_('Explore'), 
       posts=posts.items, next_url=next_url,
       prev_url=prev_url)
 
@@ -189,9 +190,9 @@ def reset_password_request():
       user = User.query.filter_by(email=form.email.data).first()
       if user:
          send_password_reset_email(user)
-      flash('Check your email for the instructions to reset your password')
+      flash(_('Check your email for the instructions to reset your password'))
       return redirect(url_for('login'))
-   return render_template('reset_password_request.html', title='Reset Password', form=form)
+   return render_template('reset_password_request.html', title=_('Reset Password'), form=form)
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -204,7 +205,7 @@ def reset_password(token):
    if form.validate_on_submit():
       user.set_password(form.password.data)
       db.session.commit()
-      flash('Your password has been reset.')
+      flash(_('Your password has been reset.'))
       return redirect(url_for('login'))
    return render_template('reset_password.html', form=form)
 

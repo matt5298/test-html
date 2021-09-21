@@ -1,0 +1,109 @@
+2021-09-05 13:33:56,985 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 13:34:48,852 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 13:35:19,015 ERROR: Exception on /edit_profile [POST] [in /home/cabox/venv2/lib/python3.8/site-packages/flask/app.py:1454]
+Traceback (most recent call last):
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: user.username
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/cabox/venv2/lib/python3.8/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/cabox/venv2/lib/python3.8/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/cabox/venv2/lib/python3.8/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/flask_login/utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/cabox/workspace/test-html/microblog/app/routes.py", line 96, in edit_profile
+    db.session.commit()
+  File "<string>", line 2, in commit
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 1428, in commit
+    self._transaction.commit(_to_root=self.future)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3298, in flush
+    self._flush(objects)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3438, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/session.py", line 3398, in _flush
+    flush_context.execute()
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 234, in save_obj
+    _emit_update_statements(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/orm/persistence.py", line 998, in _emit_update_statements
+    c = connection._execute_20(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1583, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/sql/elements.py", line 323, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1452, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1814, in _execute_context
+    self._handle_dbapi_exception(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1995, in _handle_dbapi_exception
+    util.raise_(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/base.py", line 1771, in _execute_context
+    self.dialect.do_execute(
+  File "/home/cabox/venv2/lib/python3.8/site-packages/sqlalchemy/engine/default.py", line 717, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: user.username
+[SQL: UPDATE user SET username=?, about_me=? WHERE user.id = ?]
+[parameters: ('Bilbo', "Hello! I'm from Seattle and I love horses so moved to Wyoming!!! Yeahaaaaa!!!!", 1)]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2021-09-05 17:06:59,346 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 17:07:15,383 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 18:04:24,034 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 18:07:02,607 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-05 18:12:28,662 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 10:18:47,764 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 10:19:32,031 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 10:24:04,403 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 10:31:04,948 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 16:59:40,326 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 17:23:55,012 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:43]
+2021-09-06 19:47:01,353 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:19:44,135 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:24:27,991 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:27:55,628 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:36:23,256 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:38:33,872 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 20:44:58,517 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 21:08:53,506 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 21:09:17,594 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 21:10:48,876 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 21:50:07,609 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-06 21:52:17,335 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:45]
+2021-09-11 13:45:44,742 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:48]
+2021-09-11 13:46:27,357 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:48]
+2021-09-11 13:48:39,437 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:48]
+2021-09-18 20:33:41,151 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-18 20:48:03,682 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-18 20:52:41,671 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 03:34:35,283 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 03:41:12,838 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 03:56:57,872 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 04:02:23,549 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 04:16:20,699 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 04:23:00,951 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 04:25:32,778 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-19 04:31:20,300 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:56]
+2021-09-20 01:11:01,905 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:58]
+2021-09-20 01:24:40,363 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:58]

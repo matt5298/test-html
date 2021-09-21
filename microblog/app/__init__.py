@@ -11,7 +11,9 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel
-
+from flask import request
+from  flask_babel import lazy_gettext as _l
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -20,10 +22,15 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 # used by Flask-Login to know which view to redirect to if some one is not logged in.
 login.login_view = 'login'
+#for language translation setting the login message and process it with the lazy
+#tranlation function that will translate when used.
+#by default the loginManager provides it's own login message
+login.login_message = _l('Please log in to access this page.')
 mail = Mail(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 babel = Babel(app)
+toolbar = DebugToolbarExtension(app)
 
 if not app.debug:
    if app.config['MAIL_SERVER']:
@@ -50,4 +57,7 @@ if not app.debug:
    app.logger.setLevel(logging.INFO)
    app.logger.info('Microblog startup')
 
-from app import routes, models, errors
+@babel.localeselector
+def get_locale():
+   return request.accept_languanges.best_match(app.config['LANGUANGES'])
+
