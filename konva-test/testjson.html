@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <title>Json load test</title>
+
+  </head>
+
+  <body>
+
+      <header>
+
+      </header>
+
+      <section>
+
+      </section>
+
+    <script>
+    const header = document.querySelector('header');
+    const section = document.querySelector('section');
+    let requestURL = 'https://apache2-reklander.codeanyapp.com/konva-test/data.json'
+    let request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+
+    request.onload = function() {
+        const jsonData = request.response;
+        populateHeader(jsonData);
+    }
+    function populateHeader(obj) {
+        const myH1 = document.createElement('h1')
+        myH1.textContent = obj['TestHeader']
+        header.appendChild(myH1)
+    }
+    </script>
+  </body>
+</html>
