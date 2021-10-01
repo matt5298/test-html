@@ -32,8 +32,16 @@
     // a shape
     // a text
     // group them together
+    // did that and then messed around with the double click event to test manipulating objects.
+    // zIndex() to get zIndex, zIndex(1) to set it. 
+    // for the object I created set the kgroup.zIndex() to adjust the relative zIndex of the different custom objects
+    // within the object if I adjust the shape and text zIndex it affects which is on top.
+    // zIndex 0 first drawn and all greater are drawn on top.  To put something on top need to set it to the greatest zIndex in the parent node.
+    // All items in Konva are nodes and all nodes have children
+    // can manipulate via the console the objects.
 
-    // 0.03 (don't think this happened)
+
+    // 0.03 (don't think this happened, need a webserver to save files)
     // Have metadata for each object created in the user interface
     // put that metadata into a json type object
     // be able to display the json object
@@ -69,19 +77,21 @@
       // This is used to for the grid of boxes
       var group = new Konva.Group({
           x: 10,
-          Y: 200,
+          Y: 10,
           draggable: true
       });
 
       //Create a class
       class VisObj {
-        constructor(text, shape) {
+        constructor(text, shape, x, y) {
           this.text = text;
           this.shape = shape;
+          this.x = x;
+          this.y = y;
           //group to contain this object's konva objects
           this.kgroup = new Konva.Group({
-            x: 10,
-            Y: 200,
+            x: x,
+            Y: y,
             draggable: true
           });
           //create a konva shape object
@@ -112,9 +122,9 @@
             x: 10,
             y: 15,
             text: this.text,
-            fontSize: 30,
+            fontSize: 10,
             fontFamily: 'Calibri',
-            fill: 'green'
+            fill: 'black'
           });
           
           //Add items to the group
@@ -124,13 +134,13 @@
       };
       
       //Create an object and add it to the layer
-      var myObj = new VisObj('Hello World!','rect');
+      var myObj1 = new VisObj('Hello World!','rect',100,350);
       //adding my object to the layer.  Have to reference the group inside the object to do that.
-      layer.add(myObj.kgroup);
+      layer.add(myObj1.kgroup);
       //Create an object and add it to the layer
-      var myObj = new VisObj('WTF this is EASY!','circle');
+      var myObj2 = new VisObj('WTF this is EASY!','circle',300,700);
       //adding my object to the layer.  Have to reference the group inside the object to do that.
-      layer.add(myObj.kgroup);
+      layer.add(myObj2.kgroup);
       
       //The main box of the interface the smaller boxes are placed in
 
@@ -206,20 +216,47 @@
        layer.add(shape)
 
       });
+
       // Double click of primary mouse button
+      // stage.on('dblclick dbltap', function (e) {
+      //     var pos = group.getRelativePointerPosition();
+      //     var shape = new Konva.Circle({
+      //       x: pos.x,
+      //       y: pos.y,
+      //       fill: 'red',
+      //       radius: 20,
+      //       draggable: true,
+      //     });
+      //   group.add(shape);
+
+      // //Double click of mousebutton will output the properties to the console
+      // stage.on('dblclick dbltap', function (e) {
+      //   for (const prop in myObj){
+      //     console.log(`myObj.${prop} = ${myObj[prop]}`);
+      //   }
+      //   console.log('next');
+      //   for (const prop in myObj.kshape){
+      //     console.log(`myObj.kshape.${prop} = ${myObj.kshape[prop]}`);
+      //   }
+
+      // });
+      
+      //Double click of mousebutton will output the properties to the console
       stage.on('dblclick dbltap', function (e) {
-          var pos = group.getRelativePointerPosition();
-          var shape = new Konva.Circle({
-            x: pos.x,
-            y: pos.y,
-            fill: 'red',
-            radius: 20,
-            draggable: true,
-          });
-        group.add(shape);
+        for (const prop in myObj1){
+          console.log(`myObj1.${prop} = ${myObj1[prop]}`);
+        }
+        console.log('myObj1 group zindex');
+        console.log(myObj1.kgroup.zIndex());
+        console.log(myObj2.kgroup.zIndex());
+        // myObj2.kgroup.zIndex(0);
+        myObj2.kgroup.zIndex(10);
+        myObj1.kshape.zIndex(1);
+        
+
       });
-
-
+      
+    
       // add cursor styling
       box.on('mouseover', function () {
         document.body.style.cursor = 'pointer';
