@@ -1,10 +1,11 @@
 
-from flask import render_template
+from flask import render_template, request
 from app import app, db
 
 @app.errorhandler(404)
 def not_found_error(error):
-   return render_template('404.html'), 404
+    print ('debug msg: ' + request.url)
+    return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def internal_error(error):
