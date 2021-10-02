@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Learning Javascript variables</title>
+</head>
+<body>
+    <script>
+    // attempt to get element before it's defined in the body of the web page
+    console.log('attempt to get element before it is defined in the body of the web page')
+    div1 = document.getElementById('t1');
+    para = document.createElement('p');
+    para.textContent = 'This happened before the div was defined';
+    div1.appendChild(para);
+    </script>
+
+    <div id="t1">
+    <!-- <h1> Hello Worlddd!!!</h1> -->
+    </div>
+    
+  <script src="js/Learning-variables.js">//the top script</script>
+
+    <script> 
+    //using a function from the learning-variables.js that's above
+    var ts = new topScript();
+
+    const div = document.getElementById('t1');
+    para = document.createElement('p');
+    //using variable from top script
+    para.textContent = myVar;
+    div.appendChild(para);
+    //using function from top script
+    para = document.createElement('p');
+    para.textContent = ts.getText();
+    div.appendChild(para);
+
+    var bs = new bottomScript;
+    //using function from bottom script
+    para = document.createElement('p');
+    para.textContent = bs.getText();
+    div.appendChild(para);
+
+    </script>
+  <script src="js/Learning-variables-bottom.js">
+  // the bottom script
+  // doesn't work when at the bottom because the body is rendered before it's loaded
+  // move above the calls to it and it will work
+  </script>
+    
+</body>
+</html>

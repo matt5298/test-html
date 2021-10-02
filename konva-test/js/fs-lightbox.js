@@ -9,9 +9,10 @@
  * Project: https://github.com/FaisalST32/fs-lightbox
  */
 
+console.log('loading javascript file fs lightbox');
 
 function FsLightbox() {
-
+    console.log('executing FsLightbox');
     var _this = this;
 
     this.imagesArray = [];
@@ -29,6 +30,7 @@ function FsLightbox() {
                         `;
 
     this.render = () => {
+        console.log('executing render function');
         this.imagesArray = [];
 
         this.currentImage = null;
@@ -48,6 +50,7 @@ function FsLightbox() {
     }
 
     this.lightbox = _el => {
+        console.log('what1')
         this.hideLightbox();
         this.currentImage = _el;
         this.isLightbox = true;
@@ -69,6 +72,7 @@ function FsLightbox() {
     }
 
     this.next = () => {
+        console.log('next key press');
         let imgIndex = getCurrentImageIndex();
         if (imgIndex === _this.imagesArray.length - 1)
             return;
@@ -170,7 +174,7 @@ function FsLightbox() {
             return;
         }
     }
-}
-
+};
 var fsLightbox = new FsLightbox;
 fsLightbox.render();
+console.log('bottom of fsLightbox.js--wooohooo!!!');
