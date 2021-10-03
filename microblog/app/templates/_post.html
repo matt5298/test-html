@@ -7,9 +7,13 @@
       </a>
       </td>
       <td>
-         <a href="{{ url_for('user', username=post.author.username) }}">
-            {{ post.author.username }}
-         </a>
+       <!-- will only appear on posts for which the language was detected and this language does not match the detected language stored in g.locale -->
+      {% if post.language and post.language != g.locale %}
+      <br><br>
+      <span id="translation{{ post.id }}"></span>
+      <a href="#">{{ _('Translate') }}</a>
+      </span>
+      {% end if %}
          {% set user_link %}
             <a href="{{ url_for('user', username=post.author.username) }}">
                {{ post.author.username }}
@@ -18,7 +22,7 @@
          {{ _('%(username)s said %(when)s',
             username=user_link, when=moment(post.timestamp).fromNow()) }}
          <br>
-         {{ post.body }}
+         <span id="post{{ post.id}}">{{ post.body }}</span>
       </td>
    </tr>
 </table>

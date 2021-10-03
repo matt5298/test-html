@@ -1,19 +1,28 @@
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User, Post
-from flask import render_template, flash, redirect, url_for, request, g
+from flask import render_template, flash, redirect, url_for, request, jsonify
+#this is the global variables object 
+from flask import g
 from werkzeug.urls import url_parse
 from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, EmptyForm, PostForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.email import send_password_reset_email
+from app.translate import translate
 from datetime import datetime
 from flask_babel import _, get_locale
+from langdetect import detect, LangDetectException
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/index', methods=['GET','POST'])
 @login_required
 def index():
    form = PostForm()
+   # detecting language of the post before saved to the database
    if form.validate_on_submit():
+      try: 
+         language = detect(form.post.data)
+      except LangDetectException:
+          language = ''
       # creation of the post record object from the form data
       # author is the backref defined in User that refers to the user
       post = Post(body=form.post.data, author=current_user)
@@ -210,3 +219,9 @@ def reset_password(token):
       return redirect(url_for('login'))
    return render_template('reset_password.html', form=form)
 
+@app.route('/translate', methods=['POST'])
+@login_required
+def translate_text():
+    return jsonify({'text': translate(request.form['text'],
+    request.form['source_language'],
+    request.form['dest_language'])})
