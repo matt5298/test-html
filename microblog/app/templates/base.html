@@ -55,4 +55,5 @@
    {{ super() }}
    <!-- Flask-Moment function to write the script tag to import Moment.js -->
    {{ moment.include_moment() }}
+   {{ moment.lang(g.locale) }}
 {% endblock %}

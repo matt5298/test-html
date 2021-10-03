@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-09-18 19:39-0400\n"
+"POT-Creation-Date: 2021-10-02 21:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
 
-#: app/__init__.py:26
+#: app/__init__.py:28
 msgid "Please log in to access this page."
 msgstr ""
 
@@ -126,7 +126,7 @@ msgstr ""
 
 #: app/routes.py:180 app/templates/base.html:22
 msgid "Explore"
-msgstr ""
+msgstr "Explorar"
 
 #: app/routes.py:193
 msgid "Check your email for the instructions to reset your password"
@@ -163,11 +163,11 @@ msgstr ""
 
 #: app/templates/base.html:4
 msgid "Welcome to Microblog"
-msgstr ""
+msgstr "Bienvenido a Microblog"
 
 #: app/templates/base.html:21
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #: app/templates/base.html:26
 msgid "Login"

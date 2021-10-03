@@ -12,7 +12,7 @@ from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_babel import Babel
 from flask import request
-from  flask_babel import lazy_gettext as _l
+from flask_babel import lazy_gettext as _l
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -59,5 +59,6 @@ if not app.debug:
 
 @babel.localeselector
 def get_locale():
-   return request.accept_languanges.best_match(app.config['LANGUANGES'])
-
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
+    
+from app import routes
