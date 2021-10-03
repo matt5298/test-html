@@ -6,7 +6,7 @@ class Config(object):
    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
       'sqlite:///' + os.path.join(basedir, 'app.db')
    SQLALCHEMY_TRACK_MODIFICATIONS = False
-   SERVER_NAME="localhost:3000"
+   SERVER_NAME="localhost.localdomain:3000"
    MAIL_SERVER = os.environ.get('MAIL_SERVER')
    MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
    MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL') is not None
@@ -14,4 +14,6 @@ class Config(object):
    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
    ADMINS = ['matt5298@gmail.com']
    POSTS_PER_PAGE = 25 
-   LANGUAGES = ['en','es','it']
+   LANGUAGES = ['es','en']
+   #config setting for the Debug Toolbar, to keep it from intercepting redirects.  Set to True to enable again.
+   DEBUG_TB_INTERCEPT_REDIRECTS = False
