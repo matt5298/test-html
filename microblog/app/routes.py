@@ -21,11 +21,12 @@ def index():
    if form.validate_on_submit():
       try: 
          language = detect(form.post.data)
+        #  print('debug language of post: ' + language)
       except LangDetectException:
           language = ''
       # creation of the post record object from the form data
       # author is the backref defined in User that refers to the user
-      post = Post(body=form.post.data, author=current_user)
+      post = Post(body=form.post.data, author=current_user, language=language)
       db.session.add(post)
       db.session.commit()
       flash(_('Your post is now live!'))

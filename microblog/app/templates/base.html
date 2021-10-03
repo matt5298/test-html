@@ -59,9 +59,12 @@
    <script> 
         function translate(sourceElem, destElem, sourceLang, destLang) {
             $(destElem).html('<img src = "{{ url_for('static', filename='loading.gif') }}">');
+            // using post jquery function to post to the flask server
+            // then using javascript promises functins to deterimine what to do when the $.post function gets a return value.
             $.post('/translate', {
                 text: $(sourceElem).text(),
-                source_language: destLang
+                source_language: sourceLang,
+                dest_language: destLang
             }).done(function(response) {
                 $(destElem).text(response['text'])
             }).fail(function() {
