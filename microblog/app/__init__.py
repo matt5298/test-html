@@ -15,8 +15,11 @@ from flask import request
 from flask_babel import lazy_gettext as _l
 from flask_debugtoolbar import DebugToolbarExtension
 
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
@@ -31,6 +34,7 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 babel = Babel(app)
 toolbar = DebugToolbarExtension(app)
+
 
 if not app.debug:
    if app.config['MAIL_SERVER']:
@@ -60,5 +64,8 @@ if not app.debug:
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
-    
+
+from app.errors import bp as errors_bp
+app.register_blueprint(errors_bp)
+
 from app import routes
