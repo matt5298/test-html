@@ -24,7 +24,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 # used by Flask-Login to know which view to redirect to if some one is not logged in.
-login.login_view = 'login'
+login.login_view = 'auth.login'
 #for language translation setting the login message and process it with the lazy
 #tranlation function that will translate when used.
 #by default the loginManager provides it's own login message
@@ -68,4 +68,8 @@ def get_locale():
 from app.errors import bp as errors_bp
 app.register_blueprint(errors_bp)
 
-from app import routes
+from app.auth import bp as auth_bp
+app.register_blueprint(auth_bp, url_prefix='/auth')
+
+from app.main import bp as main_bp
+app.register_blueprint(main_bp)
