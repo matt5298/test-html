@@ -20,3 +20,4 @@ class Config(object):
    LANGUAGES = ['es','en']
    #config setting for the Debug Toolbar, to keep it from intercepting redirects.  Set to True to enable again.
    DEBUG_TB_INTERCEPT_REDIRECTS = False
+   ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
