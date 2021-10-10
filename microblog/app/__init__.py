@@ -11,6 +11,7 @@ from flask_moment import Moment
 from flask_babel import Babel, lazy_gettext as _l
 from config import Config
 from flask_debugtoolbar import DebugToolbarExtension
+from elasticsearch import Elasticsearch
 
 # initialize addin section
 # when creating an app global variable initialize
@@ -49,6 +50,8 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
+    
+    app.elasticsearch = Elasticsearch([app.config['ELASTICSEARCH_URL']]) if app.config['ELASTICSEARCH_URL'] else None
 
     #initialize and register the Blueprints
     from app.errors import bp as errors_bp
