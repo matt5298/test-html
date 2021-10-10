@@ -13,11 +13,14 @@
       </td> -->
 
       <td>
-       <!-- will only appear on posts for which the language was detected and this language does not match the detected language stored in g.locale -->
+       <!-- will only appear on posts for which the language was detected and this 
+        language does not match the detected language stored in g.locale -->
          {% set user_link %}
-            <a href="{{ url_for('main.user', username=post.author.username) }}">
-               {{ post.author.username }}
-            </a>
+            <span class="user_popup">
+                <a href="{{ url_for('main.user', username=post.author.username) }}">
+                    {{ post.author.username }}
+                </a>
+            </span>
          {% endset %}
          {{ _('%(username)s said %(when)s',
             username=user_link, when=moment(post.timestamp).fromNow()) }}
