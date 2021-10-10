@@ -15,3 +15,5 @@
 2021-10-06 23:38:57,550 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:62]
 2021-10-06 23:39:08,121 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:62]
 2021-10-06 23:40:08,080 INFO: Microblog startup [in /home/cabox/workspace/test-html/microblog/app/__init__.py:62]
+2021-10-10 10:00:20,390 INFO: Microblog startup [in /home/cabox/workspace/mtut/app/__init__.py:82]
+2021-10-10 10:01:05,484 INFO: Microblog startup [in /home/cabox/workspace/mtut/app/__init__.py:82]

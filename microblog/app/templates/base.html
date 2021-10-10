@@ -80,6 +80,75 @@
                 $(destElem).text("{{ _('Error: Could not contact server.') }}");
             });
         }
+
+        // function to run when page is loaded that marks all the popup elements
+        // creating anonymous function wrapped inside jquery keeps it from polluting the global namespace
+        $(function() {
+            // define timer here so available to mouse in and out function calls that are defined
+            // within this closure.
+            var timer = null;
+            $('.user_popup').hover(
+                function(event) {
+                    // mouse in event handler
+                    var elem = $(event.currentTarget);
+                    // setting timer so popups only show after time expires
+                    timer = setTimeout(function() {
+                        timer = null;
+                        //xhr holds asynchronous request object created by $.ajax()
+                        // $.ajax() returns a promise representing the asynchronous operation.
+                        //  define the completion callback with the .done(function(){})
+                        // .done(function(data){}) the data receives the returned response.
+                        // the response is the html content that goes in the popover
+                        // parsing the user name from the element that is target of hover
+                        // not able to use the url_for function from Flask because we are 
+                        // on the client side
+                        xhr = $.ajax(
+                            '/user/' + elem.first().text().trim() + '/popup').done(
+                                function(data){
+                                    xhr = null
+                                    // create and display popup here
+                                    elem.popover({
+                                        trigger: 'manual', 
+                                        html: true, 
+                                        animation: false, 
+                                        container: elem, 
+                                        content: data
+                                    }).popover('show');
+                                    // when Flask-Moment elements are added via Ajax, this function needs
+                                    // to be called to appropriately render these elements.
+                                    // it must create the javascript function on the server and send it
+                                    // with the rendered html
+                                    flask_moment_render_all();
+                                }
+                            );
+                    }, 1000);
+                },
+                function(event) {
+                    // mouse out event handler
+                    var elem = $(event.currentTarget);
+                    // clear the timer var so if the user moves off the elememnt before the 
+                    // timer function is called, < 1sec,  at the end of the second the popup
+                    // will not show up.  If timer was not cleared it would show up eventhough
+                    // the user had moved off the element.
+                    if (timer) {
+                        clearTimeout(timer);
+                        timer = null;
+                    }
+                    // check for existence of the asynchronous request for the popup html that's 
+                    // in the xhr variable created in the mouse over function above.
+                    // if it exists then abort it so the asynchronous completion function that was 
+                    // defined above doesn't get called.
+                    else if (xhr) {
+                        xhr.abort();
+                        xhr = null;
+                    }
+                    else {
+                        // destroy popup here
+                        elem.popover('destroy');
+                    }
+                }
+            )
+        });
         </script>
 
 {% endblock %}
